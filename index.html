@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>銀行客戶流失預測研究</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            flex: 1;
+        }
+
+        nav ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            padding: 20px;
+            background-color: white;
+            margin: 20px auto;
+            max-width: 900px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        h2 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>銀行客戶流失預測研究</h1>
+        <h2>基於決策樹、隨機森林與支持向量機的多種監督式學習技術</h2>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showContent('intro')">專案簡介</a></li>
+            <li><a href="#" onclick="showContent('project')">專案介紹</a></li>
+            <li><a href="#" onclick="showContent('data')">數據描述</a></li>
+            <li><a href="#" onclick="showContent('model')">模型選擇與訓練</a></li>
+            <li><a href="#" onclick="showContent('prediction')">預測結果</a></li>
+            <li><a href="#" onclick="showContent('report')">報告分工</a></li>
+            <li><a href="#" onclick="showContent('teamwork')">組員心得</a></li>
+            <li><a href="#" onclick="showContent('ai-dialog')">生成式AI互動歷程</a></li>
+            <li><a href="#" onclick="showContent('references')">參考資料與附錄</a></li>
+            <li><a href="#" onclick="showContent('team')">製作團隊</a></li>
+        </ul>
+    </nav>
+    <div class="content" id="content-area">
+        <!-- Project Introduction -->
+        <div id="intro" class="hide">
+            <h2>專案簡介</h2>
+            <p>
+                本研究旨在透過多種監督式學習模型（例如：決策樹、隨機森林與支持向量機），預測銀行客戶可能流失的風險。
+                客戶流失一直是金融業的一大挑戰，流失的客戶不僅會直接影響銀行的收入，還可能損害銀行的品牌形象與市場地位。
+                因此，如何提前預測哪些客戶可能流失並採取有效的挽留措施，是銀行提升客戶關係管理及市場競爭力的重要方向。
+            </p>
+            <p>
+                銀行客戶流失的主要原因，可能包括服務體驗不佳、競爭對手的吸引、更高的手續費或利率，以及個人財務狀況的變化等。
+                本專案通過分析多種客戶特徵（如信用評分、年齡、地理位置和產品使用數量等），建構預測模型，協助銀行識別高風險客戶群體，
+                並提供數據支持以制定精準的留客策略。
+            </p>
+            <p>
+                我們希望透過本研究，能夠：
+            </p>
+            <ul>
+                <li>提升對客戶資料的洞察力，了解哪些因素最能影響客戶流失。</li>
+                <li>選擇最佳的機器學習模型，用於準確預測客戶流失的可能性。</li>
+                <li>為銀行提供可操作的建議，幫助其制定針對性的行銷策略與服務改善方案。</li>
+            </ul>
+            <p>
+                此外，我們也針對模型的準確性、穩定性及應用場景進行詳細比較，力求提供一套兼具實用性與效能的解決方案。
+            </p>
+        </div>
+        <!-- Project Description -->
+        <!-- Project Introduction Section -->
+<div id="project" class="hide">
+    <h2>專案介紹</h2>
+
+    <h3>（1）研究背景</h3>
+    <p>
+        在金融市場高度競爭的環境下，銀行面臨客戶流失問題日益嚴重。為提升經營效率與客戶關係管理品質，
+        透過多種監督式學習技術進行客戶流失預測，能有效協助銀行提前掌握風險，制定精準行銷與留客策略，
+        強化市場競爭力。
+    </p>
+
+    <h3>（2）研究問題</h3>
+    <ul>
+        <li><strong>a.</strong> 信用評分、地理位置、性別、年齡等因素對客戶流失率有何影響？</li>
+        <li><strong>b.</strong> 哪些因素會對客戶流失率具有最大的影響力？</li>
+        <li><strong>c.</strong> 基於這些因素（特徵），要如何預測並降低客戶流失率？</li>
+    </ul>
+</div>
+        <!-- Data Description -->
+        <!-- Data Description Section -->
+<div id="data" class="hide">
+    <h2>數據描述</h2>
+
+    <h3>（1）數據集的來源</h3>
+    <p>
+        數據集來源：<a href="https://www.kaggle.com/datasets/shubhammeshram579/bank-customer-churn-prediction" target="_blank">Kaggle - Bank Customer Churn Prediction</a>
+    </p>
+
+    <h3>（2）數據集描述</h3>
+    <p>原始資料筆數共有 10002 筆，有 12 個變量，擷取前十筆資料呈現如下：</p>
+    <ul>
+        <li><strong>客戶ID：</strong>每個客戶的唯一識別符。</li>
+        <li><strong>姓氏：</strong>客戶的姓氏。</li>
+        <li><strong>信用評分：</strong>代表客戶信用評分的數值。</li>
+        <li><strong>地理位置：</strong>客戶所在的國家（法國、西班牙或德國）。</li>
+        <li><strong>性別：</strong>顧客的性別（男或女）。</li>
+        <li><strong>年齡：</strong>顧客的年齡。</li>
+        <li><strong>服務年資：</strong>客戶在銀行服務的年數。</li>
+        <li><strong>餘額：</strong>客戶的帳戶餘額。</li>
+        <li><strong>NumOfProducts：</strong>客戶使用的銀行產品數量（例如儲蓄帳戶、信用卡）。</li>
+        <li><strong>HasCrCard：</strong>顧客是否有信用卡（1 = 是，0 = 否）。</li>
+        <li><strong>IsActiveMember：</strong>客戶是否為活躍會員（1 = 是，0 = 否）。</li>
+        <li><strong>EstimatedSalary：</strong>客戶的預期薪資。</li>
+        <li><strong>Exited：</strong>客戶是否流失（1 = 是，0 = 否）。</li>
+    </ul>
+
+    <h3>（3）特徵工程</h3>
+    <ul>
+        <li><strong>Customer ID：</strong>識別性質的欄位，並不具備預測價值，因此未納入模型訓練。</li>
+        <li><strong>Surname：</strong>僅為識別用途，與客戶是否流失無關，未作為特徵變數。</li>
+        <li><strong>Credit Score：</strong>反映顧客信用狀況，是重要的預測變數。</li>
+        <li><strong>Geography：</strong>不同地區可能影響流失率，適合作為特徵變數。</li>
+        <li><strong>Gender：</strong>性別可能影響流失風險，納入模型訓練。</li>
+        <li><strong>Age：</strong>年齡影響流失率，重要的預測變數。</li>
+        <li><strong>Tenure：</strong>服務年資反映客戶忠誠度，是重要特徵。</li>
+        <li><strong>Balance：</strong>帳戶餘額高低影響流失可能性，作為特徵變數。</li>
+        <li><strong>Number Of Products：</strong>使用產品數量與客戶關係密切相關，是重要的預測變數。</li>
+        <li><strong>Has Credit Card：</strong>是否持有信用卡，作為客戶與銀行關係的指標之一。</li>
+        <li><strong>Is Active Member：</strong>活躍會員對銀行的依賴程度較高，適合作為特徵變數。</li>
+        <li><strong>Estimated Salary：</strong>收入水平可能影響流失風險，納入模型訓練。</li>
+    </ul>
+
+    <h3>X (特徵) 與 Y (目標變數)</h3>
+    <p>特徵 (X)：包含以下變量：</p>
+    <ul>
+        <li>Credit Score（信用評分）</li>
+        <li>Geography（地理位置）</li>
+        <li>Gender（性別）</li>
+        <li>Age（年齡）</li>
+        <li>Tenure（服務年資）</li>
+        <li>Balance（餘額）</li>
+        <li>Number Of Products（產品數量）</li>
+        <li>Has Credit Card（是否有信用卡）</li>
+        <li>Is Active Member（是否為活躍會員）</li>
+        <li>Estimated Salary（預估薪水）</li>
+    </ul>
+    <p>目標變數 (Y)：Exited（是否流失）。</p>
+
+    <h3>（4）數據處理（異常值或缺值）</h3>
+    <p>缺失值情況：</p>
+    <pre>
+RowNumber          0
+CustomerId         0
+Surname            0
+CreditScore        0
+Geography          1
+Gender             0
+Age                1
+Tenure             0
+Balance            0
+NumOfProducts      0
+HasCrCard          1
+IsActiveMember     1
+EstimatedSalary    0
+Exited             0
+    </pre>
+    <p>
+        Rownumber、Customerid、Surname 不為特徵，因此未列入異常值處理。以下為缺失值處理方式：
+    </p>
+    <ul>
+        <li>Geography：使用眾數填補 1 筆缺失值。</li>
+        <li>Age：使用中位數填補 1 筆缺失值。</li>
+        <li>HasCrCard：使用眾數填補 1 筆缺失值。</li>
+        <li>IsActiveMember：使用眾數填補 1 筆缺失值。</li>
+    </ul>
+    <pre>
+# 數據預處理
+data = data.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1)
+data['Geography'] = data['Geography'].fillna(data['Geography'].mode()[0])
+data['Age'] = data['Age'].fillna(data['Age'].median())
+data['HasCrCard'] = data['HasCrCard'].fillna(data['HasCrCard'].mode()[0])
+data['IsActiveMember'] = data['IsActiveMember'].fillna(data['IsActiveMember'].mode()[0])
+    </pre>
+
+    <h3>（5）數據類型轉換</h3>
+    <p>
+        建立預測模型前，需將類別資料轉成數值資料。以下為處理方式：
+    </p>
+    <ul>
+        <li><strong>Gender：</strong>進行 Label Encoding。</li>
+        <li><strong>Geography：</strong>進行 One-Hot Encoding。</li>
+    </ul>
+    <pre>
+# Label Encoding for Gender
+le = LabelEncoder()
+data['Gender'] = le.fit_transform(data['Gender'])
+
+# One-Hot Encoding for Geography
+geo_ohe = OneHotEncoder()
+geo_encoded = geo_ohe.fit_transform(data[['Geography']]).toarray()
+geo_encoded_df = pd.DataFrame(geo_encoded, columns=geo_ohe.get_feature_names_out(['Geography']))
+
+# Concatenate the encoded features with the original dataframe
+data = pd.concat([data, geo_encoded_df], axis=1)
+data = data.drop('Geography', axis=1)
+# Display the first five rows of the modified data
+data.head()
+    </pre>
+</div>
+        <!-- Model Selection and Training -->
+        <div id="model" class="hide">
+            <h2>模型選擇與訓練</h2>
+            <h3>（1）採用之模型</h3>
+            <p>
+                在本研究中，我們主要使用了決策樹（Decision Tree）、隨機森林（Random Forest）和支持向量機（SVM）三種分類模型進行預測，
+                旨在根據各種客戶資料進行客戶流失預測，並選擇最佳模型以達到較高的預測準確度。
+            </p>
+            <ul>
+                <li>
+                    <strong>決策樹（Decision Tree）：</strong>
+                    <ul>
+                        <li>優點：易於理解與解釋，預測速度快。</li>
+                        <li>缺點：容易過擬合，對資料變動敏感。</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>隨機森林（Random Forest）：</strong>
+                    <ul>
+                        <li>優點：抗過擬合能力強，適用於高維資料。</li>
+                        <li>缺點：模型較複雜，解釋性較差。</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>支持向量機（SVM）：</strong>
+                    <ul>
+                        <li>優點：適合處理高維度資料，對小樣本資料也有良好表現。</li>
+                        <li>缺點：參數調整較困難，當資料量很大時，訓練速度慢。</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>支持向量機（SVM調參後）：</strong>
+                    <ul>
+                        <li>優點：提升分類準確率，能有效改善預設參數下的模型限制，具備良好的泛化能力。</li>
+                        <li>缺點：需要大量計算資源與時間進行參數搜尋，容易因為調整參數過度而造成過擬合。</li>
+                    </ul>
+                </li>
+            </ul>
+        
+            <h3>（2）訓練集與測試集</h3>
+            <table style="width: 100%; border-collapse: collapse; text-align: center; margin-top: 20px;">
+                <thead>
+                    <tr style="background-color: #4CAF50; color: white;">
+                        <th style="padding: 10px; border: 1px solid #ddd;">比率 (測試資料：訓練資料)</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">測試筆數</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">訓練筆數</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;">1：9</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">1001</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">9001</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;">
+                        <td style="padding: 8px; border: 1px solid #ddd;">2：8</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">2001</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">8001</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;">3：7</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">3001</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">7001</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;">
+                        <td style="padding: 8px; border: 1px solid #ddd;">4：6</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">4001</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">6001</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <h3>（3）模型評估與比較</h3>
+            <table style="width: 100%; border-collapse: collapse; text-align: center; margin-top: 20px;">
+                <thead>
+                    <tr style="background-color: #4CAF50; color: white;">
+                        <th style="padding: 10px; border: 1px solid #ddd;">比率 (測試資料：訓練資料)</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">決策樹 (DT)</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">隨機森林 (RF)</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">支持向量機 (SVM)</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">支持向量機（調參後）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;">1：9</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8571</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8621</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8531</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8551</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;">
+                        <td style="padding: 8px; border: 1px solid #ddd;">2：8</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8556</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8601</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8596</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8601</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;">3：7</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8564</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8564</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8620</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8624</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;">
+                        <td style="padding: 8px; border: 1px solid #ddd;">4：6</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8545</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8520</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8585</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8590</td>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <td style="padding: 8px; border: 1px solid #ddd;">平均</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8559</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8577</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8583</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">0.8592</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Prediction Results -->
+        <!-- Prediction Results Section -->
+<div id="prediction" class="hide">
+    <h2>預測結果</h2>
+    <p>
+        在本研究中，我們針對四種分類演算法進行模型訓練與比較，分別為：決策樹（Decision Tree）、隨機森林（Random Forest）、支持向量機（SVM）、以及調參後的SVM（進行精度上的改進）。
+        為了確保各模型表現最佳，我們根據交叉驗證與測試結果，採用不同的訓練與測試資料比例：決策樹與隨機森林採用9:1資料比例進行訓練與預測，
+        而SVM及其調參版本則採用7:3資料比例。評估指標包含 Accuracy、Precision、Recall 及 F1 Score，以及各演算法對應的混淆矩陣。
+    </p>
+    <h3>模型比較結果</h3>
+    <table style="width: 100%; border-collapse: collapse; text-align: center; margin-top: 20px;">
+        <thead>
+            <tr style="background-color: #4CAF50; color: white;">
+                <th style="padding: 10px; border: 1px solid #ddd;">評估指標</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">決策樹 (DT)<br>(9:1)</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">隨機森林 (RF)<br>(9:1)</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">支持向量機 (SVM)<br>(7:3)</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">支持向量機（調參後）<br>(7:3)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: 8px; border: 1px solid #ddd;">Accuracy</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.8571</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.86213</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.86204</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.86237</td>
+            </tr>
+            <tr style="background-color: #f9f9f9;">
+                <td style="padding: 8px; border: 1px solid #ddd;">Precision</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.8161</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.7884</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.80392</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.79682</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; border: 1px solid #ddd;">Recall</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.3585</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.414</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.41</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.41833</td>
+            </tr>
+            <tr style="background-color: #f9f9f9;">
+                <td style="padding: 8px; border: 1px solid #ddd;">F1 Score</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.4982</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.5430</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.54304</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">0.5486</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>分析與建議</h3>
+    <p>
+        由上表及混淆矩陣可觀察到，調參後的SVM模型在 Accuracy、Recall 以及 F1 Score 上皆為最高，顯示其對於客戶流失的分類表現最佳；
+        而決策樹模型在 Precision 指標上表現最高，代表其對於預測「不流失」客戶的精準性較強。隨機森林則在所有評估指標上均表現穩定且為次高，
+        顯示其兼具準確性與穩定性，是相當均衡的模型選擇。
+    </p>
+    <p>
+        綜合上述分析，雖然調參後的 SVM 模型在多項指標中表現最佳，但其訓練時間與資源消耗較高，對於即時預測任務來說較不具實務效率。
+        因此，若考量系統資源與效能表現的平衡，建議可優先採用隨機森林作為客戶流失預測的主要模型，兼顧模型穩定性與實作便利性。
+    </p>
+
+    <h3>模型視覺化分析</h3>
+    <p>為更進一步了解模型的分類方式與特徵影響，我們也針對各模型進行視覺化圖像分析，具體如下：</p>
+    <ul>
+        <li><strong>Decision Tree：</strong> 使用樹狀圖呈現分類路徑，有助於理解各特徵對最終預測的貢獻與判斷流程。</li>
+        <div class="image-placeholder">Decision Tree 圖示</div>
+
+        <li><strong>Random Forest：</strong> 可觀察多棵決策樹之特徵分裂方式，並評估各特徵的重要性。</li>
+        <div class="image-placeholder">Random Forest 圖示</div>
+
+        <li><strong>SVM 和 SVM 調參後：</strong> 我們先利用 PCA（主成分分析）將原始的12個特徵降維至2維或3維，繪製分隔平面與資料分佈的散佈圖，幫助視覺化模型如何進行資料區分。</li>
+        <div class="image-placeholder">SVM 圖示</div>
+        <div class="image-placeholder">SVM 調參後 圖示</div>
+    </ul>
+</div>
+        <!-- Report Division -->
+        <div id="report" class="hide">
+            <h2>報告分工</h2>
+            <ul>
+                <li><strong>高鈿傑：</strong>專案介紹</li>
+                <li><strong>陳昱安：</strong>相關程式撰寫</li>
+                <li><strong>何虹儀：</strong>模型選擇與訓練、預測結果</li>
+            </ul>
+        </div>
+        <!-- Team Insights -->
+        <div id="teamwork" class="hide">
+            <h2>組員心得</h2>
+            <h3>B1011035 高鈿傑</h3>
+            <p>
+                這次的報告讓我更加深刻地感受到AI的強大，不論給它什麼樣的問題，它都能快速地做出回答，讓這次的報告進度有了相當大的進展。
+                透過這次的報告，我也更加熟悉了ChatGPT的操作。如果使用這麼強大的AI，以後做報告想必會更加得心應手。
+            </p>
+        
+            <h3>B1112204 何虹儀</h3>
+            <p>
+                雖然一開始對機器學習模型不是很熟，但在實際操作中慢慢摸出一些概念，像是每個模型的原理差異、優缺點，
+                還有怎麼選用合適的模型來解決分類問題。我們這次用了三種模型：決策樹、隨機森林和SVM，搭配不同的訓練集與測試集比例，
+                去觀察準確率的變化。
+            </p>
+            <p>
+                過程中，我發現模型的表現會因為資料比例不同而有所變化，尤其是在訓練資料太少的情況下，模型表現會明顯下降。
+                另外，不同模型的穩定性也不太一樣，像是決策樹雖然容易看懂，但有時候準確率波動比較大；而隨機森林整體來說表現最好，
+                平均準確率也最高，讓我印象很深。SVM的結果也不差，不過在程式處理上要注意參數設定，否則容易跑不動或太久。
+            </p>
+            <p>
+                這次作業不只幫我熟悉了幾種常見的分類模型，也讓我真正體會到資料分析和機器學習的實作流程是怎麼一回事。
+                比起一開始的陌生，現在的我對這些工具多了一點理解，也覺得這領域蠻有趣的，讓我更有信心自己以後可以處理類似的問題。
+            </p>
+        
+            <h3>B1141065 陳昱安</h3>
+            <p>
+                在這次銀行客戶流失預測報告中，我主要是負責模型建立、程式撰寫與報告排版等工作，這讓我在資料科學的實務應用上有了更深入的理解與實戰經驗。
+                首先我使用了三種機器學習模型進行訓練與比較：決策樹、隨機森林與支持向量機（含調參版本）。每個模型都有不同的特性與使用情境，
+                其中支持向量機的超參數調整與資料標準化是我遇到最大的挑戰，需要花時間理解參數如何影響分類邊界。而隨機森林則在準確率與穩定性方面表現最好，
+                讓我對集成學習有了更深刻的認識。
+            </p>
+            <p>
+                再來資料處理的部分，我清理了無預測意義的欄位（如客戶 ID、姓氏），並針對分類變數進行編碼，數值資料進行缺失值填補，
+                為模型訓練打下良好基礎。這也讓我學會如何根據不同欄位特性選擇適當的預處理方式。另外在報告整合與排版上，
+                我負責將程式碼、圖表與文字分析有條理地呈現，這不僅提升了資料分析的可讀性，也加強了我的報告製作能力。
+            </p>
+            <p>
+                在這次報告中，我認爲最大的收穫就是學會如何從資料處理到模型評估整合成一套完整流程，並真正理解各模型背後的邏輯與應用場景。
+                同時，也鍛鍊了我在問題排解與團隊合作上的能力。
+            </p>
+        </div>
+        <!-- AI Interaction -->
+        <div id="ai-dialog" class="hide">
+            <h2>與生成式AI互動的對話歷程</h2>
+            <p>在本次報告撰寫與模型訓練的過程中，有運用到生成式 AI（Gemini）進行部分程式設計的輔助。透過與AI的互動，有效提升了整體效率與成果品質。</p>
+            <h3>主要面向與過程</h3>
+            <ul>
+                <li><strong>程式設計輔助：</strong> 
+                    利用生成式AI協助撰寫模型訓練程式碼，包括數據預處理、特徵工程及模型評估的相關程式片段。例如，AI提供了針對缺失值填補的最佳實踐建議，以及如何使用 scikit-learn 庫進行模型初始化。
+                </li>
+                <li><strong>結果解讀與分析：</strong> 
+                    在模型結果分析時，生成式AI協助解釋混淆矩陣、準確率等評估指標的意義，並提供了可視化結果的改進建議，例如使用更適合的圖表來呈現數據分佈。
+                </li>
+                <li><strong>撰寫技術文件：</strong> 
+                    使用生成式AI快速生成技術文檔框架，包括專案背景、數據描述和模型選擇等部分。這大幅減少了手動撰寫文檔的時間，並確保內容結構的一致性。
+                </li>
+                <li><strong>語法與最佳實踐建議：</strong> 
+                    在程式碼撰寫過程中，AI提供了語法修正建議，並推薦了更高效的程式執行方式。例如，建議使用 pandas 的內建函數進行數據清理以提高執行效能。
+                </li>
+            </ul>
+            <h3>互動成果</h3>
+            <p>透過與生成式AI的良好互動，我們成功完成了以下工作：</p>
+            <ul>
+                <li>完成三種機器學習模型的程式設計與比較分析。</li>
+                <li>撰寫一份結構清晰、邏輯嚴謹的技術報告。</li>
+                <li>提升了團隊成員對數據科學工具與技術的理解與應用能力。</li>
+            </ul>
+            <p>總體而言，生成式AI在本次專案中的輔助作用顯著，為我們節省了大量時間並提高了工作效率。</p>
+        </div>
+        <!-- References -->
+        <div id="references" class="hide">
+            <h2>參考資料與附錄</h2>
+            <h3>參考資料</h3>
+            <ul>
+                <li>[1] Shubham Meshram(2023)。<a href="https://www.kaggle.com/datasets/shubhammeshram579/bank-customer-churn-prediction" target="_blank">Bank Customer Churn Prediction</a></li>
+                <li>[2] Yeh James (2017)。<a href="https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC3-4%E8%AC%9B-%E6%94%AF%E6%8F%B4%E5%90%91%E9%87%8F%E6%A9%9F-support-vector-machine-%E4%BB%8B%E7%B4%B9-9c6c6925856b" target="_blank">[機器學習] 支援向量機(Support Vector Machine)介紹</a></li>
+                <li>[3] Alex Lin (2022)。<a href="https://medium.com/@SCU.Datascientist/python%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98-%E6%B1%BA%E7%AD%96%E6%A8%B9-decision-tree-b9acf11f0f84" target="_blank">【機器學習筆記】決策樹(Decision tree)</a></li>
+                <li>[4] Chung-Yi (2019)。<a href="https://medium.com/chung-yi/ml%E5%85%A5%E9%96%80-%E5%8D%81%E4%B8%83-%E9%9A%A8%E6%A9%9F%E6%A3%AE%E6%9E%97-random-forest-6afc24871857" target="_blank">ML入門（十七）隨機森林(Random Forest)</a></li>
+            </ul>
+        
+            <h3>附錄一：Python 程式碼（決策樹）</h3>
+            <pre>
+        import pandas as pd
+        import numpy as np
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        # scikit-learn 相關匯入
+        from sklearn.model_selection import train_test_split
+        from sklearn.tree import DecisionTreeClassifier
+        from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+        # 1. 讀取 CSV 檔案
+        data = pd.read_csv('Churn_Modelling.csv')
+        data = data.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1)
+        # 2. 缺失值填補
+        data['Geography'] = data['Geography'].fillna(data['Geography'].mode()[0])
+        data['Age'] = data['Age'].fillna(data['Age'].median())
+        # 3. One-Hot Encoding for Geography
+        from sklearn.preprocessing import OneHotEncoder
+        ohe = OneHotEncoder()
+        geo_encoded = ohe.fit_transform(data[['Geography']]).toarray()
+        geo_encoded_df = pd.DataFrame(geo_encoded, columns=ohe.get_feature_names_out(['Geography']))
+        data = pd.concat([data, geo_encoded_df], axis=1)
+        data = data.drop('Geography', axis=1)
+        # 4. 模型建立與評估
+        X = data.drop(['Exited'], axis=1)
+        y = data['Exited']
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+        dt_classifier = DecisionTreeClassifier(max_depth=5, random_state=42)
+        dt_classifier.fit(X_train, y_train)
+        y_pred = dt_classifier.predict(X_test)
+        print("Accuracy:", accuracy_score(y_test, y_pred))
+        print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+            </pre>
+        
+            <h3>附錄二：Python 程式碼（隨機森林）</h3>
+            <pre>
+        import pandas as pd
+        from sklearn.ensemble import RandomForestClassifier
+        # 1. 讀取資料
+        df = pd.read_csv('Churn_Modelling.csv')
+        df.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1, inplace=True)
+        # 2. 資料處理與特徵工程
+        from sklearn.model_selection import train_test_split
+        from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+        le = LabelEncoder()
+        df['Gender'] = le.fit_transform(df['Gender'])
+        ohe = OneHotEncoder()
+        geo_encoded = ohe.fit_transform(df[['Geography']])
+        geo_encoded_df = pd.DataFrame(geo_encoded, columns=ohe.get_feature_names_out(['Geography']))
+        df = pd.concat([df.drop('Geography', axis=1), geo_encoded_df], axis=1)
+        X = df.drop('Exited', axis=1)
+        y = df['Exited']
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+        # 3. 模型建立與訓練
+        rf_classifier = RandomForestClassifier(n_estimators=100, random_state=42)
+        rf_classifier.fit(X_train, y_train)
+        y_pred = rf_classifier.predict(X_test)
+        print("Accuracy:", accuracy_score(y_test, y_pred))
+            </pre>
+        
+            <!-- Additional appendices can be added here -->
+        
+        </div>
+        <!-- Team Section -->
+        <div id="team" class="hide">
+            <h2>製作團隊</h2>
+            <p>本專案由以下成員共同完成：</p>
+            <ul>
+                <li>高鈿傑</li>
+                <li>陳昱安</li>
+                <li>何虹儀</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        function showContent(sectionId) {
+            const sections = document.querySelectorAll('.content div');
+            sections.forEach(section => section.classList.add('hide'));
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.remove('hide');
+            }
+        }
+    </script>
+</body>
+</html>
